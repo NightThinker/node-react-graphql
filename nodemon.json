@@ -1,0 +1,7 @@
+{
+  "env" : {
+    "MONGO_USER": "may",
+    "MONGO_PEASSWORD": "9tvmwpZzSvt5hgKv",
+    "MONGO_DB": "event-graphql-youtube"
+  }
+}
