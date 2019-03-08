@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 
 import AuthContext from '../context/auth-context'
+import { Control, Actions } from './FormStyled'
 
 const AuthForm = styled.form`
   width: 25rem;
@@ -9,34 +10,6 @@ const AuthForm = styled.form`
   margin: 5rem auto;
 `
 
-const Control = styled.div`
-  margin-bottom: 1rem;
-  label {
-    margin-bottom: 0.5rem;
-  }
-  label, input {
-    width: 100%;
-    display: block;
-  }
-`
-const Actions = styled.div`
-  button {
-    background: #01d1d1;
-    font: inherit;
-    border: 1px solid #01d1d1;
-    border-radius: 5px;
-    padding: 0.25rem 1rem;
-    margin: 0 1rem;
-    margin-right: 1rem;
-    box-shadow: 1px 1px 5px rgba(0,0,0,0.25);
-    color: #fff;
-    cursor: pointer;
-    &:hover, &:active {
-      background: #01a7a7;
-      border-color: #01a7a7;
-    }
-  }
-`
 
 class AuthPage extends Component {
 

@@ -31,12 +31,19 @@ const Items = styled.nav`
   }
   li {
     margin: 0 1rem;
+    align-items: center;
   }
-  a {
+  a, button {
     text-decoration: none;
     color: #000;
+    border: none;
+    font: inherit;
+    background: transparent;
+    cursor: pointer;
+    vertical-align: middle;
+    margin: 0;
   }
-  a:hover, a:active, a.active {
+  a:hover, a:active, a.active, button:hover, button:active{
     color: #f8e264;
   }
 `
@@ -60,9 +67,14 @@ const mainNavigation = props => (
                 <NavLink to='/events'>Events</NavLink>
               </li>
               {context.token && (
-                <li> 
-                  <NavLink to='/bookings'>Bookings</NavLink>
-                </li>
+                <React.Fragment>
+                  <li> 
+                    <NavLink to='/bookings'>Bookings</NavLink>
+                  </li>
+                  <li> 
+                    <button onClick={context.logout}>Logout</button>
+                  </li>
+                </React.Fragment>
               )}
             </ul>
           </Items>
