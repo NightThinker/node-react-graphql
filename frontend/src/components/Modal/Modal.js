@@ -10,6 +10,7 @@ const Modal = styled.div`
   position: fixed;
   top: 20vh;
   left: 5%;
+  z-index: 100;
   @media (min-width: 768px) {
     width: 30rem;
     left: calc((100% - 30rem)/2);
@@ -43,7 +44,7 @@ const modal = (props) => (
     <Content>{props.children}</Content>
     <Actions>
       {props.canCancel && <Button onClick={props.onCancel}>Cancel</Button>}
-      {props.canConfirm && <Button onClick={props.onConfirm}>Confirm</Button>}
+      {props.canConfirm && <Button onClick={props.onConfirm}>{props.confirmText}</Button>}
     </Actions>
   </Modal>
 )
