@@ -22,7 +22,7 @@ module.exports = {
       title: eventInput.title,
       description: eventInput.description,
       price: +eventInput.price,
-      date: new Date(),
+      date: eventInput.date,
       creator: '5c7ded9f2bfcc70b98f9dffd'
     })
     let createdEvent;

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 
 import AuthContext from '../context/auth-context'
-import { Control, Actions } from './FormStyled'
+import { Control, Actions } from '../components/Styled/FormStyled'
 
 const AuthForm = styled.form`
   width: 25rem;

@@ -6,7 +6,7 @@ export const Control = styled.div`
   label {
     margin-bottom: 0.5rem;
   }
-  label, input {
+  label, input, textarea {
     width: 100%;
     display: block;
   }
