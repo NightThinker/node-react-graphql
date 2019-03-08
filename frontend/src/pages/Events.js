@@ -37,8 +37,14 @@ class EventsPage extends Component {
     }
   }
 
+  isActive = true
+
   componentDidMount () {
     this.fetchEvents()
+  }
+
+  componentWillUnmount() {
+    this.isActive = false
   }
 
   startCreateEventHandler = () => {
@@ -159,11 +165,15 @@ class EventsPage extends Component {
       })
       .then((resData) => {
         const events = resData.data.events
-        this.setState({ events: events, isLoading: false })
+        if(this.isActive) {
+          this.setState({ events: events, isLoading: false })
+        }
       })
       .catch((err) => {
         console.log(err)
-        this.setState({ isLoading: false })
+        if(this.isActive){
+          this.setState({ isLoading: false })
+        }
       })
   }
 
@@ -176,7 +186,47 @@ class EventsPage extends Component {
   }
    
   bookEventHandler = () => {
+    if(!this.context.token) {
+      this.setState({seletedEvent: null})
+      return;
+    }
+    const requestBody = {
+      query: ` 
+        mutation {
+          bookEvent(eventId: "${this.state.seletedEvent._id}") {
+            _id
+            createdAt
+            updatedAt
+          }
+        }
+      `
+    }
+    const token = this.context.token
 
+    fetch('http://localhost:4000/graphql', {
+      method: 'POST',
+      body: JSON.stringify(requestBody),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token
+      }
+    })
+      .then((res) => {
+        console.log(res.status)
+        if (res.status !== 200 && res.status !== 201) {
+          throw new Error('Failed!')
+        }
+        return res.json()
+      })
+      .then((resData) => {
+        console.log('TCL: EventsPage -> resData', resData)
+        this.setState({seletedEvent: null})
+        // const events = resData.data.events
+        // this.setState({ events: events, isLoading: false })
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
 
   render () {
@@ -219,7 +269,7 @@ class EventsPage extends Component {
             canConfirm
             onCancel={this.modalCancelHandler}
             onConfirm={this.bookEventHandler}
-            confirmText="Book"
+            confirmText={this.context.token ? "Book" : "Confirm"}
           >
             <h1>{this.state.seletedEvent.title}</h1>
             <h2>${this.state.seletedEvent.price} - {new Date(this.state.seletedEvent.date).toLocaleDateString()}</h2>
