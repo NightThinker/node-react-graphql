@@ -2,6 +2,8 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 
+import AuthContext from '../../context/auth-context'
+
 const MainHeader = styled.header`
   display: flex;
   position: fixed;
@@ -40,24 +42,34 @@ const Items = styled.nav`
 `
 
 const mainNavigation = props => (
-  <MainHeader>
-    <Logo>
-      <h1>EasyEvent</h1>
-    </Logo>
-    <Items>
-      <ul>
-        <li>
-          <NavLink to='/auth'>Authenticate</NavLink>
-        </li>
-        <li> 
-          <NavLink to='/events'>Events</NavLink>
-        </li>
-        <li> 
-          <NavLink to='/bookings'>Bookings</NavLink>
-        </li>
-      </ul>
-    </Items>
-  </MainHeader>
+  <AuthContext.Consumer>
+    {(context) => {
+      return (
+        <MainHeader>
+          <Logo>
+            <h1>EasyEvent</h1>
+          </Logo>
+          <Items>
+            <ul>
+              {!context.token && (
+                <li>
+                  <NavLink to='/auth'>Authenticate</NavLink>
+                </li>
+              )}
+              <li> 
+                <NavLink to='/events'>Events</NavLink>
+              </li>
+              {context.token && (
+                <li> 
+                  <NavLink to='/bookings'>Bookings</NavLink>
+                </li>
+              )}
+            </ul>
+          </Items>
+        </MainHeader>
+      )
+    }}
+  </AuthContext.Consumer>
 )
 
 export default mainNavigation
