@@ -17,6 +17,9 @@ const events = async eventIds => {
 	console.log('TCL: eventIds', eventIds)
   try {
     const events = await Event.find({ _id: { $in: eventIds} })
+    events.sort((a,b) => {
+      return (eventIds.indexOf(a._id.toString()) - eventIds.indexOf(b._id.toString()))
+    })
     return events.map(event => {
       return transformEvent(event)
     })
