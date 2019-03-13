@@ -13,8 +13,6 @@ const EventList = styled.ul`
 
 const eventList = (props) => {
   const events = props.events.map((event) => {
-    console.log("authUserId : ",props.authUserId)
-    console.log("creatorId : ",event.creator._id)
     return (
       <EventItem 
         key={event._id} 

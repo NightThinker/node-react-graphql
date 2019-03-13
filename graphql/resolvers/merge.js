@@ -14,6 +14,7 @@ const userLoader = new DataLoader((userIds) => {
 });
 
 const events = async eventIds => {
+	console.log('TCL: eventIds', eventIds)
   try {
     const events = await Event.find({ _id: { $in: eventIds} })
     return events.map(event => {
